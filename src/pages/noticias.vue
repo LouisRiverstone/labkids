@@ -3,7 +3,7 @@
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 d-flex v-for="(noticia, i) in noticias" :key="i">
 				<v-card class="elevation-3">
-					<v-card-media contain class="elevation-2" :src="noticia.imagem" height="200"></v-card-media>
+					<v-card-media class="elevation-2" :src="noticia.imagem" height="200"></v-card-media>
 					<v-card-text>
 						{{noticia.descricao}}
 					</v-card-text>

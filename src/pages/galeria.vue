@@ -3,7 +3,7 @@
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 d-flex v-for="(foto, i) in fotos" :key="i">
 				<v-card ripple @click.native="openFile(foto)" class="elevation-3">
-					<v-card-media contain class="elevation-2" :src="foto.url_s" height="200">
+					<v-card-media class="elevation-2" :src="foto.url_s" height="200">
 						<img v-if="foto.media == 'video'" src="public/img/play.png" class="play">
 					</v-card-media>
 					<v-card-text>

@@ -82,7 +82,7 @@ export default {
 		]
 	}),
 	mounted(){
-		this.dark = JSON.parse(localStorage.dark) || false
+		this.dark = localStorage.dark ? JSON.parse(localStorage.dark) : false
 	},
 	methods: {
 		toggleTheme(){
