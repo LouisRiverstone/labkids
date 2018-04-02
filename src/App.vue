@@ -2,9 +2,6 @@
 	<v-app :dark="dark">
 		<v-toolbar color="primary" dark flat tabs fixed app>
 			<v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
-			<v-avatar>
-				<img src="public/img/logo.png" class="logo" />
-			</v-avatar>
 			<v-toolbar-title>{{$route.name}}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
