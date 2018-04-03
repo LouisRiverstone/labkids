@@ -1,7 +1,7 @@
 <template>
 	<v-container grid-list-lg>
 		<v-layout row wrap>
-			<v-flex xs12 sm6 md4 lg3 d-flex v-for="(curso, i) in cursos" :key="i">
+			<v-flex xs12 sm6 md4 lg3 v-for="(curso, i) in cursos" :key="i">
 				<v-card class="elevation-3">
 					<v-card-media contain class="elevation-2" :src="curso.icone" height="200"></v-card-media>
 					<v-card-title>

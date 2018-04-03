@@ -1,7 +1,7 @@
 <template>
 	<v-container grid-list-lg>
 		<v-layout row wrap>
-			<v-flex xs12 sm6 md4 lg3 d-flex v-for="(foto, i) in fotos" :key="i">
+			<v-flex xs12 sm6 md4 lg3 v-for="(foto, i) in fotos" :key="i">
 				<v-card ripple @click.native="openFile(foto)" class="elevation-3">
 					<v-card-media class="elevation-2" :src="foto.url_s" height="200">
 						<img v-if="foto.media == 'video'" src="public/img/play.png" class="play">
@@ -15,7 +15,7 @@
 			</v-flex>
 		</v-layout>
 		<v-layout column align-center>
-			<v-pagination :length="pages" v-model="page" @input="setPage"></v-pagination>
+			<v-pagination :length="pages" v-model="page" @input="setPage" :total-visible="7"></v-pagination>
 		</v-layout>
 		<v-dialog v-model="loading" persistent max-width="300">
 			<loading></loading>

@@ -1,9 +1,9 @@
 <template>
 	<v-container grid-list-lg>
 		<v-layout row wrap>
-			<v-flex xs12 sm6 md4 lg3 d-flex v-for="(pessoa, i) in equipe" :key="i">
+			<v-flex xs12 sm6 md4 lg3 v-for="(pessoa, i) in equipe" :key="i">
 				<v-card :title="pessoa.descricao" class="elevation-3">
-					<v-card-media contain class="elevation-2" :src="pessoa.foto" height="200"></v-card-media>
+					<v-card-media class="elevation-2" :src="pessoa.foto" height="200"></v-card-media>
 					<v-card-text>
 						<span class="headline">{{pessoa.nome}}</span>
 						<br>
@@ -108,7 +108,7 @@ export default {
 				nome: 'Matheus de Araújo',
 				funcao: 'Professor do curso de Pensamento Computacional',
 				descricao: `Sou estudante de bacharelado em Ciências da Computação no IFB campus Taguatinga. Sou estagiário no TCU como desenvolvedor de sistemas APEX e gestão de banco de dados Oracle. Possuo experiência em sala de aula dando aulas de pensamento computacional para crianças, visando um aprimoramento em diversas áreas do conhecimento do estudante, tal interesse gerou um PIBIC com o intuito de estudar a relação entre o ensino de lógica de programação e o aprendizado de matemática.`,
-				foto: 'public/img/logo.svg'
+				foto: 'public/img/logo.png'
 			}
 		]
 	})
