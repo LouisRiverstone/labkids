@@ -2,16 +2,24 @@
 	<v-container grid-list-lg>
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 v-for="(pessoa, i) in equipe" :key="i">
-				<v-card :title="pessoa.descricao" class="elevation-3">
+				<v-card class="elevation-3">
 					<v-card-media class="elevation-2" :src="pessoa.foto" height="200"></v-card-media>
 					<v-card-text>
 						<span class="headline">{{pessoa.nome}}</span>
 						<br>
 						{{pessoa.funcao}}
 					</v-card-text>
-					<v-card-actions v-if="pessoa.link">
-						<v-btn color="primary" :href="pessoa.link" target="_blank">Mais detalhes</v-btn>
-					</v-card-actions>
+					<v-expansion-panel v-if="pessoa.descricao || pessoa.link">
+						<v-expansion-panel-content>
+							<div slot="header">Mais detalhes</div>
+							<v-card>
+								<v-card-text>{{pessoa.descricao}}</v-card-text>
+								<v-card-actions v-if="pessoa.link">
+									<v-btn color="primary" :href="pessoa.link" target="_blank">Website</v-btn>
+								</v-card-actions>
+							</v-card>
+						</v-expansion-panel-content>
+					</v-expansion-panel>
 				</v-card>
 			</v-flex>
 		</v-layout>
@@ -103,6 +111,16 @@ export default {
 				funcao: 'Professora do curso de Robótica',
 				descricao: `Cursando Tecnologia em Automação Industrial no Instituto Federal de Brasília. Amo fazer projetos de interiores no autocad ou sweet home 3D nas horas vagas, sou uma pessoa calma e detalhista.`,
 				foto: 'public/img/equipe/thais.jpg'
+			},
+			{
+				nome: 'Jailson Rodrigues',
+				funcao: 'Prpfessor do curso Modelagem e Impressão 3D',
+				foto: 'public/img/equipe/jailson.jpg'
+			},
+			{
+				nome: 'Lucas Vitor',
+				funcao: 'Auxiliar',
+				foto: 'public/img/equipe/burgues.jpg'
 			},
 			{
 				nome: 'Matheus de Araújo',

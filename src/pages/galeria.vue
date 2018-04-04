@@ -14,8 +14,16 @@
 				</v-card>
 			</v-flex>
 		</v-layout>
-		<v-layout column align-center>
-			<v-pagination :length="pages" v-model="page" @input="setPage" :total-visible="7"></v-pagination>
+		<v-layout column align-center v-if="pages > 1">
+			<v-flex>
+				<v-btn color="primary" :disabled="page <= 1" @click="prev">
+					<v-icon>mdi-chevron-left</v-icon>
+				</v-btn>
+				<v-chip>{{page}}</v-chip>
+				<v-btn color="primary" :disabled="page >= pages" @click="next">
+					<v-icon>mdi-chevron-right</v-icon>
+				</v-btn>
+			</v-flex>
 		</v-layout>
 		<v-dialog v-model="loading" persistent max-width="300">
 			<loading></loading>
@@ -42,8 +50,9 @@ export default {
 	data: () => ({
 		fotos: [],
 		foto: null,
-		pages: 0,
 		page: 1,
+		oldpage: 1,
+		pages: 0,
 		error: false,
 		errorText: '',
 		loading: false,
@@ -63,11 +72,13 @@ export default {
 				this.pages = response.data.photos.pages
 				this.fotos = response.data.photos.photo
 				this.loading = false
+				window.scrollTo(0, 0)
 			})
 			.catch(err => {
-				this.errorText = err.response.data
-				this.error = true
 				this.loading = false
+				this.page = this.oldpage
+				this.errorText = err.response ? err.response.data : err.message
+				this.error = true
 			})
 		},
 		openFile(file){
@@ -76,6 +87,16 @@ export default {
 			this.$nextTick(() => {
 				this.$refs.player.loadMedia()
 			})
+		},
+		prev(){
+			this.oldpage = this.page
+			this.page--
+			this.update()
+		},
+		next(){
+			this.oldpage = this.page
+			this.page++
+			this.update()
 		}
 	}
 }
