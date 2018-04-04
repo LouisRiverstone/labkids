@@ -59,12 +59,12 @@ export default {
 			this.poster = this.foto.url_o
 			this.opened = true
 			if(this.foto.media == 'video'){
+				this.controls = true
+				this.autoplay = true
 				this.loading = true
 				this.$axios.get(`${this.$server}/galeria/foto/${this.foto.id}`)
 				.then(response => {
 					this.loading = false
-					this.controls = true
-					this.autoplay = true
 					this.url = response.data.sizes.size.find(x => x.label == 'Site MP4').source
 				})
 				.catch(err => {

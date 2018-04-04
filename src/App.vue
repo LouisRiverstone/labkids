@@ -35,7 +35,7 @@
 					</v-btn>
 				</v-flex>
 				<v-flex xs12 text-xs-center class="mt-2">
-					&copy;{{year}} <strong>LABKIDS</strong>
+					&copy;{{year}} <strong>LABKIDS</strong> - <router-link class="white--text" to="/termos">Termos de uso</router-link>
 				</v-flex>
 			</v-layout>
 		</v-footer>
@@ -98,8 +98,5 @@ export default {
 <style>
 .fontlab {
 	font-family: funhouse;
-}
-.logo {
-	border: 1px solid #fff;
 }
 </style>

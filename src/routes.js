@@ -14,5 +14,5 @@ export default [
 	{path: '/contato', component: contato, name: 'Contatos'},
 	{path: '/equipe', component: equipe, name: 'Equipe'},
 	{path: '/galeria', component: galeria, name: 'Galeria'},
-	{path: '/termos', component: termos, name: 'Termos de uso e privacidade'}
+	{path: '/termos', component: termos, name: 'Termos de uso'}
 ]

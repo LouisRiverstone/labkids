@@ -14,10 +14,10 @@
 					</v-card-title>
 					<v-card-text>
 						<v-form ref="form" @submit="enviar">
-							<v-text-field required v-model="nome" :rules="[rules.required]" label="Nome"></v-text-field>
-							<v-text-field required v-model="email" :rules="[rules.required, rules.email]" label="E-mail"></v-text-field>
-							<v-text-field v-model="telefone" mask="###########" :rules="[rules.telefone]" label="Telefone"></v-text-field>
-							<v-text-field required v-model="mensagem" :rules="[rules.required]" label="Mensagem" multi-line></v-text-field>
+							<v-text-field prepend-icon="mdi-account" required v-model="nome" :rules="[rules.required]" label="Nome"></v-text-field>
+							<v-text-field prepend-icon="mdi-email" required v-model="email" :rules="[rules.required, rules.email]" label="E-mail"></v-text-field>
+							<v-text-field prepend-icon="mdi-phone" v-model="telefone" mask="###########" :rules="[rules.telefone]" label="Telefone"></v-text-field>
+							<v-text-field prepend-icon="mdi-message-text" required v-model="mensagem" :rules="[rules.required]" label="Mensagem" multi-line></v-text-field>
 						</v-form>
 					</v-card-text>
 					<v-card-actions>
