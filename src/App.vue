@@ -5,7 +5,7 @@
 			<v-toolbar-title>{{$route.name}}</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" target="_blank">{{item.title}}</v-btn>
+				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" target="_blank" :disabled="item.disabled">{{item.title}}</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
 		<v-content>
@@ -13,7 +13,7 @@
 		</v-content>
 		<v-bottom-sheet v-model="drawer">
 			<v-list>
-				<v-list-tile v-for="(item, i) in menu" :key="i" ripple :to="item.to" :href="item.href" target="_blank" @click="drawer = false">
+				<v-list-tile v-for="(item, i) in menu" :key="i" ripple :to="item.to" :href="item.href" target="_blank" @click="drawer = false" :disabled="item.disabled">
 					<v-list-tile-title>{{item.title}}</v-list-tile-title>
 				</v-list-tile>
 			</v-list>
@@ -39,15 +39,27 @@
 				</v-flex>
 			</v-layout>
 		</v-footer>
+		<v-dialog v-model="loading" persistent max-width="300">
+			<loading></loading>
+		</v-dialog>
+		<v-snackbar color="error" v-model="error">{{errorText}}</v-snackbar>
 	</v-app>
 </template>
 
 <script>
 export default {
 	data: () => ({
+		loading: false,
+		error: false,
+		errorText: '',
 		drawer: false,
 		dark: false,
+		inscricoes: {},
 		menu: [
+			{
+				title: 'Classificados',
+				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf'
+			},
 			{
 				title: 'Sobre',
 				to: '/sobre'
@@ -65,8 +77,7 @@ export default {
 				to: '/equipe'
 			},
 			{
-				title: 'Inscrições',
-				href: 'https://doity.com.br/labkids'
+				title: 'Inscrições'
 			},
 			{
 				title: 'Galeria',
@@ -80,6 +91,19 @@ export default {
 	}),
 	mounted(){
 		this.dark = localStorage.dark ? JSON.parse(localStorage.dark) : false
+		this.loading = true
+		this.$axios.get(`${this.$gitdata}/inscricoes.json`)
+		.then(response => {
+			this.loading = false
+			const i = this.menu.find(x => x.title == 'Inscrições')
+			i.disabled = !response.data.abertas
+			i.href = response.data.url
+		})
+		.catch(err => {
+			this.loading = false
+			this.errorText = err.response ? err.response.data : err.message
+			this.error = true
+		})
 	},
 	methods: {
 		toggleTheme(){
