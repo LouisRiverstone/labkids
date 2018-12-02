@@ -1,5 +1,5 @@
 # Para rodar o site
-- Crie um arquivo `.env` com o seguinte modelo na raiz do projeto
+- Crie um arquivo `.env` na raiz do projeto com o seguinte modelo
 ```
 FLICKR_KEY=xxxxxxxxxxxx
 SMTP_HOST=smtp.myhost.com
