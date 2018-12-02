@@ -3,17 +3,16 @@
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 v-for="(pessoa, i) in equipe" :key="i">
 				<v-card class="elevation-3">
-					<v-card-media class="elevation-2" :src="`${$gitdata}/${pessoa.foto}`" height="200"></v-card-media>
-					<v-card-text>
-						<span class="headline">{{pessoa.nome}}</span>
-						<br>
+					<v-img :src="`${$gitdata}/${pessoa.foto}`" :aspect-ratio="16/9"></v-img>
+					<v-container>
+						<p class="headline">{{pessoa.nome}}</p>
 						{{pessoa.funcao}}
-					</v-card-text>
+					</v-container>
 					<v-expansion-panel v-if="pessoa.descricao || pessoa.link">
 						<v-expansion-panel-content>
 							<div slot="header">Mais detalhes</div>
 							<v-card>
-								<v-card-text>{{pessoa.descricao}}</v-card-text>
+								<v-container>{{pessoa.descricao}}</v-container>
 								<v-card-actions v-if="pessoa.link">
 									<v-btn color="primary" :href="pessoa.link" target="_blank">Website</v-btn>
 								</v-card-actions>
@@ -44,18 +43,18 @@ export default {
 		error: false,
 		errorText: ''
 	}),
-	mounted(){
+	mounted() {
 		this.loading = true
 		this.$axios.get(`${this.$gitdata}/equipe.json`)
-		.then(response => {
-			this.loading = false
-			this.equipe = response.data
-		})
-		.catch(err => {
-			this.loading = false
-			this.errorText = err.response ? err.response.data : err.message
-			this.error = true
-		})
+			.then(response => {
+				this.loading = false
+				this.equipe = response.data
+			})
+			.catch(err => {
+				this.loading = false
+				this.errorText = err.response ? err.response.data : err.message
+				this.error = true
+			})
 	}
 }
 </script>

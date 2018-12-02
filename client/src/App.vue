@@ -2,10 +2,10 @@
 	<v-app :dark="dark">
 		<v-toolbar color="primary" dark flat tabs fixed app>
 			<v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title>{{$route.name}}</v-toolbar-title>
+			<v-toolbar-title>Labkids</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" target="_blank" :disabled="item.disabled">{{item.title}}</v-btn>
+				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" :target="item.target" :disabled="item.disabled">{{item.title}}</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
 		<v-content>
@@ -58,61 +58,69 @@ export default {
 		menu: [
 			{
 				title: 'Classificados',
-				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf'
+				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf',
+				target: '_blank'
 			},
 			{
 				title: 'Sobre',
-				to: '/sobre'
+				to: '/sobre',
+				target: '_self'
 			},
 			{
 				title: 'Notícias',
-				to: '/noticias'
+				href: 'https://www.facebook.com/labkids.br',
+				target: '_blank'
 			},
 			{
 				title: 'Cursos',
-				to: '/cursos'
+				to: '/cursos',
+				target: '_self'
 			},
 			{
 				title: 'Equipe',
-				to: '/equipe'
+				to: '/equipe',
+				target: '_self'
 			},
 			{
-				title: 'Inscrições'
+				title: 'Inscrições',
+				target: '_blank'
 			},
 			{
 				title: 'Galeria',
-				to: '/galeria'
+				to: '/galeria',
+				target: '_self'
 			},
 			{
 				title: 'Contato',
-				to: '/contato'
+				to: '/contato',
+				target: '_self'
 			}
 		]
 	}),
-	mounted(){
+	mounted() {
 		this.dark = localStorage.dark ? JSON.parse(localStorage.dark) : false
 		this.loading = true
 		this.$axios.get(`${this.$gitdata}/inscricoes.json`)
-		.then(response => {
-			this.loading = false
-			const i = this.menu.find(x => x.title == 'Inscrições')
-			i.disabled = !response.data.abertas
-			i.href = response.data.url
-		})
-		.catch(err => {
-			this.loading = false
-			this.errorText = err.response ? err.response.data : err.message
-			this.error = true
-		})
+			.then(response => {
+				this.loading = false
+				const i = this.menu.find(x => x.title == 'Inscrições')
+				i.disabled = !response.data.abertas
+				i.href = response.data.url
+			})
+			.catch(err => {
+				this.loading = false
+				this.errorText = err.response ? err.response.data : err.message
+				this.error = true
+			})
 	},
 	methods: {
-		toggleTheme(){
+		toggleTheme() {
 			this.dark = !this.dark
 			localStorage.dark = this.dark
 		}
 	},
 	computed: {
-		year(){
+		year() {
 			return new Date().getFullYear()
 		}
 	}

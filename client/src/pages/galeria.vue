@@ -3,9 +3,9 @@
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 v-for="(foto, i) in fotos" :key="i">
 				<v-card ripple @click.native="openFile(foto)" class="elevation-3">
-					<v-card-media class="elevation-2" :src="foto.url_s" height="200">
-						<img v-if="foto.media == 'video'" src="public/img/play.png" class="play">
-					</v-card-media>
+					<v-img :src="foto.url_s" :aspect-ratio="16/9">
+						<img v-if="foto.media == 'video'" src="/assets/img/play.png" class="play">
+					</v-img>
 					<v-card-text>
 						<span class="headline">{{foto.title}}</span>
 						<br>
@@ -58,42 +58,42 @@ export default {
 		loading: false,
 		player: false
 	}),
-	mounted(){
+	mounted() {
 		this.update()
 	},
 	methods: {
-		setPage(){
+		setPage() {
 			this.update()
 		},
-		update(){
+		update() {
 			this.loading = true
-			this.$axios.get(`${this.$server}/galeria/${this.page}`)
-			.then(response => {
-				this.pages = response.data.photos.pages
-				this.fotos = response.data.photos.photo
-				this.loading = false
-				window.scrollTo(0, 0)
-			})
-			.catch(err => {
-				this.loading = false
-				this.page = this.oldpage
-				this.errorText = err.response ? err.response.data : err.message
-				this.error = true
-			})
+			this.$axios.get(`/api/galeria/${this.page}`)
+				.then(response => {
+					this.pages = response.data.photos.pages
+					this.fotos = response.data.photos.photo
+					this.loading = false
+					window.scrollTo(0, 0)
+				})
+				.catch(err => {
+					this.loading = false
+					this.page = this.oldpage
+					this.errorText = err.response ? err.response.data : err.message
+					this.error = true
+				})
 		},
-		openFile(file){
+		openFile(file) {
 			this.foto = file
 			this.player = true
 			this.$nextTick(() => {
 				this.$refs.player.loadMedia()
 			})
 		},
-		prev(){
+		prev() {
 			this.oldpage = this.page
 			this.page--
 			this.update()
 		},
-		next(){
+		next() {
 			this.oldpage = this.page
 			this.page++
 			this.update()

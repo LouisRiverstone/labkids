@@ -27,8 +27,6 @@ Vue.use(Vuetify, {
 Vue.use({
 	install(V, O) {
 		V.prototype.$axios = axios
-		//V.prototype.$server = 'http://localhost:3000/api'
-		V.prototype.$server = 'https://labkids.bsb.br/api'
 		V.prototype.$gitdata = 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master'
 	}
 })

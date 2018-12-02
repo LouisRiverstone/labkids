@@ -1,16 +1,16 @@
 <template>
 	<div>
-		<v-jumbotron app height="auto" :src="`${$gitdata}/img/cover.jpg`" dark>
-			<v-layout column align-center>
+		<v-img :src="`${$gitdata}/img/cover.jpg`" :aspect-ratio="16/5">
+			<v-layout column align-center justify-center fill-height>
 				<v-avatar size="300px" class="mt-5 mb-5">
-					<img src="public/img/logo.png">
+					<v-img src="/assets/img/logo.png"></v-img>
 				</v-avatar>
 			</v-layout>
-		</v-jumbotron>
+		</v-img>
 		<v-container grid-list-lg>
 			<v-layout row wrap>
 				<v-flex xs12 sm6 md4 v-for="(item, i) in items" :key="i">
-					<img :src="`${$gitdata}/${item}`" class="img_sobre">
+					<v-img :src="`${$gitdata}/${item}`" class="img_sobre"></v-img>
 				</v-flex>
 			</v-layout>
 		</v-container>
@@ -35,18 +35,18 @@ export default {
 		error: false,
 		errorText: ''
 	}),
-	mounted(){
+	mounted() {
 		this.loading = true
 		this.$axios.get(`${this.$gitdata}/sobre.json`)
-		.then(response => {
-			this.loading = false
-			this.items = response.data
-		})
-		.catch(err => {
-			this.loading = false
-			this.errorText = err.response ? err.response.data : err.message
-			this.error = true
-		})
+			.then(response => {
+				this.loading = false
+				this.items = response.data
+			})
+			.catch(err => {
+				this.loading = false
+				this.errorText = err.response ? err.response.data : err.message
+				this.error = true
+			})
 	}
 }
 </script>

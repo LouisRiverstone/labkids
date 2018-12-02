@@ -52,22 +52,20 @@ export default {
 		toolbarHeight: 0
 	}),
 	methods: {
-		close(){
+		close() {
 			this.opened = false
 		},
-		loadMedia(){
+		loadMedia() {
 			this.poster = this.foto.url_o
 			this.opened = true
-			if(this.foto.media == 'video'){
+			if (this.foto.media == 'video') {
 				this.controls = true
 				this.autoplay = true
 				this.loading = true
-				this.$axios.get(`${this.$server}/galeria/foto/${this.foto.id}`)
-				.then(response => {
+				this.$axios.get(`/api/galeria/foto/${this.foto.id}`).then(response => {
 					this.loading = false
 					this.url = response.data.sizes.size.find(x => x.label == 'Site MP4').source
-				})
-				.catch(err => {
+				}).catch(err => {
 					this.loading = false
 					this.errorText = err.response.data
 					this.error = true

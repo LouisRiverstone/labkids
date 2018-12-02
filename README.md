@@ -1,18 +1,12 @@
-# labkids
-
-> Front End do Labkids
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+# Para rodar o site
+- Crie um arquivo `.env` com o seguinte modelo na raiz do projeto
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+FLICKR_KEY=xxxxxxxxxxxx
+SMTP_HOST=smtp.myhost.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=johndoe@myhost.com
+SMTP_PASS=xxxxxxxxxxxx
+```
+- Execute `npm install`
+- Execute `npm start`

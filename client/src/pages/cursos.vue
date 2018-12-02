@@ -3,13 +3,11 @@
 		<v-layout row wrap>
 			<v-flex xs12 sm6 md4 lg3 v-for="(curso, i) in cursos" :key="i">
 				<v-card class="elevation-3">
-					<v-card-media contain class="elevation-2" :src="`${$gitdata}/${curso.icone}`" height="200"></v-card-media>
-					<v-card-title>
-						<div class="headline">{{curso.nome}}</div>
-					</v-card-title>
-					<v-card-text>
+					<v-img :src="`${$gitdata}/${curso.icone}`" :aspect-ratio="16/9"></v-img>
+					<v-container>
+						<p class="headline">{{curso.nome}}</p>
 						{{curso.descricao}}
-					</v-card-text>
+					</v-container>
 				</v-card>
 			</v-flex>
 		</v-layout>
@@ -28,18 +26,18 @@ export default {
 		error: false,
 		errorText: ''
 	}),
-	mounted(){
+	mounted() {
 		this.loading = true
 		this.$axios.get(`${this.$gitdata}/cursos.json`)
-		.then(response => {
-			this.loading = false
-			this.cursos = response.data.sort((a, b) => a.nome > b.nome)
-		})
-		.catch(err => {
-			this.loading = false
-			this.errorText = err.response ? err.response.data : err.message
-			this.error = true
-		})
+			.then(response => {
+				this.loading = false
+				this.cursos = response.data.sort((a, b) => a.nome > b.nome)
+			})
+			.catch(err => {
+				this.loading = false
+				this.errorText = err.response ? err.response.data : err.message
+				this.error = true
+			})
 	}
 }
 </script>
