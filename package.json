@@ -7,9 +7,9 @@
 		"test": "nodemon index.js",
 		"start": "cross-env NODE_ENV=production node index.js"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": ["site", "labkids"],
+	"author": "Equipe Labkids",
+	"license": "BSD 3-Clause",
 	"dependencies": {
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
