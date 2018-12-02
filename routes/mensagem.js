@@ -23,19 +23,19 @@ router.post('/', (req, res) => {
 			replyTo: req.body.email,
 			subject: 'Contato Labkids',
 			html: `
-			<p>
-				<b>Nome:</b> ${req.body.nome}
-			</p>
-			<p>
-				<b>E-mail:</b> ${req.body.email}
-			</p>
-			<p>
-				<b>Telefone:</b> ${req.body.telefone}
-			</p>
-			<p>
-				<b>Mensagem:</b><br>${req.body.mensagem}
-			</p>
-		`
+				<p>
+					<b>Nome:</b> ${req.body.nome}
+				</p>
+				<p>
+					<b>E-mail:</b> ${req.body.email}
+				</p>
+				<p>
+					<b>Telefone:</b> ${req.body.telefone}
+				</p>
+				<p>
+					<b>Mensagem:</b><br>${req.body.mensagem}
+				</p>
+			`
 		}
 		transporter.sendMail(mailOptions, (err, info) => {
 			if (err) res.status(500).send(err.message)
