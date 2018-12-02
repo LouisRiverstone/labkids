@@ -7,6 +7,35 @@
 				</v-avatar>
 			</v-layout>
 		</v-img>
+		<v-container>
+			<v-card class="elevation-5">
+				<v-container>
+					<v-layout row wrap grid-list-xl>
+						<v-flex xs12 sm2>
+							<v-img src="/assets/img/donate.png" aspect-ratio="1"></v-img>
+						</v-flex>
+						<v-flex xs12 sm9>
+							<p>
+								O LABKIDS FESTIVAL precisa da sua ajuda para promover o trabalho de crianças de 8 a 12 anos realizado nos cursos do projeto. Nossa campanha de financiamento coletivo foi criada para reunir as pessoas que querem colaborar com as ações do evento. Confira e não deixe de participar.
+							</p>
+							<p>
+								O doador receberá as seguintes recompensas:
+								<ul>
+									<li>A partir de 10 reais: adesivo e bottom.</li>
+									<li>20 reais: adesivo, bottom e marcador de página.</li>
+									<li>50 reais: adesivo, bottom, marcador de página, caneta e copo oficial.</li>
+									<li>100 reais: adesivo, bottom, marcador de página, caneta, copo e camiseta oficial.</li>
+								</ul>
+							</p>
+							<p>
+								Os brindes poderão ser retirados no dia do evento (08/12/2018) sem custo, na recepção do LabKids Festival.
+							</p>
+							<v-btn color="primary" href="http://vaka.me/jo9v2d" target="_blank">Doar</v-btn>
+						</v-flex>
+					</v-layout>
+				</v-container>
+			</v-card>
+		</v-container>
 		<v-container grid-list-lg>
 			<v-layout row wrap>
 				<v-flex xs12 sm6 md4 v-for="(item, i) in items" :key="i">
