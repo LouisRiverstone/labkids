@@ -77,7 +77,7 @@ export default {
 			},
 			{
 				title: 'Galeria',
-				to: '/galeria'
+				to: '/galeria/1'
 			},
 			{
 				title: 'Contato',
@@ -108,9 +108,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-.fontlab {
-	font-family: funhouse;
-}
-</style>

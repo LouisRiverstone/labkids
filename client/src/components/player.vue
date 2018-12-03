@@ -1,11 +1,11 @@
 <template>
 	<div v-if="opened" class="black">
-		<v-toolbar ref="toolbar" color="primary" dark>
-			<v-toolbar-title>{{foto.title}}</v-toolbar-title>
+		<v-toolbar ref="toolbar" dark>
 			<v-spacer></v-spacer>
-			<v-btn icon @click="close">
+			<v-btn icon @click="close" outline>
 				<v-icon>close</v-icon>
 			</v-btn>
+			<v-spacer></v-spacer>
 		</v-toolbar>
 		<video
 		:autoplay="autoplay"

@@ -11,7 +11,8 @@ import Player from './components/player.vue'
 import 'vuetify/dist/vuetify.css'
 
 let router = new VueRouter({
-	routes
+	routes,
+	mode: 'history'
 })
 
 Vue.use(VueRouter)
@@ -27,7 +28,7 @@ Vue.use(Vuetify, {
 Vue.use({
 	install(V, O) {
 		V.prototype.$axios = axios
-		V.prototype.$gitdata = 'https://raw.githubusercontent.com/samuelnovaes/labkids-dados/master'
+		V.prototype.$gitdata = 'http://samuelnovaes.ml/labkids-dados'
 	}
 })
 

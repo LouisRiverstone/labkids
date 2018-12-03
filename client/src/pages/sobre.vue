@@ -11,7 +11,7 @@
 			<v-card class="elevation-5">
 				<v-container>
 					<v-layout row wrap grid-list-xl>
-						<v-flex xs12 sm2>
+						<v-flex sm3 class="hidden-xs-only">
 							<v-img src="/assets/img/donate.png" aspect-ratio="1"></v-img>
 						</v-flex>
 						<v-flex xs12 sm9>

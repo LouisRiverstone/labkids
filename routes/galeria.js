@@ -6,7 +6,7 @@ router.get('/:page', (req, res) => {
 	flickr.photos.search({
 		user_id: '141027438@N07',
 		page: req.params.page,
-		per_page: 30,
+		per_page: 36,
 		extras: 'url_o,description,media,url_s'
 	}).then(response => {
 		res.json(response.body)

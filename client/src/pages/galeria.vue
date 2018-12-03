@@ -1,26 +1,19 @@
 <template>
 	<v-container grid-list-lg>
 		<v-layout row wrap>
-			<v-flex xs12 sm6 md4 lg3 v-for="(foto, i) in fotos" :key="i">
-				<v-card ripple @click.native="openFile(foto)" class="elevation-3">
-					<v-img :src="foto.url_s" :aspect-ratio="16/9">
-						<img v-if="foto.media == 'video'" src="/assets/img/play.png" class="play">
-					</v-img>
-					<v-card-text>
-						<span class="headline">{{foto.title}}</span>
-						<br>
-						{{foto.description._content}}
-					</v-card-text>
-				</v-card>
+			<v-flex xs12 sm6 md4 lg3 xl2 v-for="(foto, i) in fotos" :key="i">
+				<v-img :src="foto.url_s" :aspect-ratio="16/9" @click.native="openFile(foto)" class="elevation-3 thumbnail">
+					<img v-if="foto.media == 'video'" src="/assets/img/play.png" class="play">
+				</v-img>
 			</v-flex>
 		</v-layout>
 		<v-layout column align-center v-if="pages > 1">
 			<v-flex>
-				<v-btn color="primary" :disabled="page <= 1" @click="prev">
+				<v-btn color="primary" :disabled="pageLabel <= 1" @click="prev">
 					<v-icon>mdi-chevron-left</v-icon>
 				</v-btn>
-				<v-chip>{{page}}</v-chip>
-				<v-btn color="primary" :disabled="page >= pages" @click="next">
+				<v-chip>{{pageLabel}}</v-chip>
+				<v-btn color="primary" :disabled="pageLabel >= pages" @click="next">
 					<v-icon>mdi-chevron-right</v-icon>
 				</v-btn>
 			</v-flex>
@@ -43,6 +36,9 @@
 		margin-top: -45px;
 		margin-left: -45px;
 	}
+	.thumbnail {
+		cursor: pointer;
+	}
 </style>
 
 <script>
@@ -55,16 +51,14 @@ export default {
 		pages: 0,
 		error: false,
 		errorText: '',
-		loading: false,
-		player: false
+		loading: false
 	}),
 	mounted() {
+		this.page = parseInt(this.$route.params.page)
+		this.pageLabel = this.page
 		this.update()
 	},
 	methods: {
-		setPage() {
-			this.update()
-		},
 		update() {
 			this.loading = true
 			this.$axios.get(`/api/galeria/${this.page}`)
@@ -73,6 +67,8 @@ export default {
 					this.fotos = response.data.photos.photo
 					this.loading = false
 					window.scrollTo(0, 0)
+					this.$router.push(`/galeria/${this.page}`)
+					this.pageLabel = this.page
 				})
 				.catch(err => {
 					this.loading = false
@@ -83,7 +79,6 @@ export default {
 		},
 		openFile(file) {
 			this.foto = file
-			this.player = true
 			this.$nextTick(() => {
 				this.$refs.player.loadMedia()
 			})
