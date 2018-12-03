@@ -1,7 +1,7 @@
 <template>
 	<v-container grid-list-lg>
 		<v-layout row wrap>
-			<v-flex xs12 md6 offset-md3>
+			<v-flex xs12 md6 xl4 offset-md3 offset-xl4>
 				<v-card v-if="success" class="elevation-3">
 					<v-alert color="success" icon="check" value="true">Mensagem enviada! Entraremos em contato em breve.</v-alert>
 					<v-card-actions>
@@ -9,9 +9,9 @@
 					</v-card-actions>
 				</v-card>
 				<v-card v-else class="elevation-3">
-					<v-card-title>
-						<div class="headline">Mensagem</div>
-					</v-card-title>
+					<v-toolbar color="primary" dark>
+						<v-toolbar-title>Mensagem</v-toolbar-title>
+					</v-toolbar>
 					<v-card-text>
 						<v-form ref="form" @submit="enviar">
 							<v-text-field prepend-icon="mdi-account" required v-model="nome" :rules="[rules.required]" label="Nome"></v-text-field>

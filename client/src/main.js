@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 Vue.use(Vuetify, {
 	theme: {
 		primary: '#AB37C8',
-		secondary: '#7C2892',
+		secondary: '#E1BEE7',
 		footer: '#AB37C8'
 	}
 })
@@ -27,14 +27,14 @@ Vue.use(Vuetify, {
 Vue.use({
 	install(V, O) {
 		V.prototype.$axios = axios
-		V.prototype.$gitdata = 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master'
+		V.prototype.$gitdata = 'https://raw.githubusercontent.com/samuelnovaes/labkids-dados/master'
 	}
 })
 
 Vue.component('loading', Loading)
 Vue.component('player', Player)
 
-let vm = new Vue({
+new Vue({
 	el: '#app',
 	router,
 	render: h => h(App)

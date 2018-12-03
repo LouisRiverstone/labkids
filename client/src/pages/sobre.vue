@@ -7,7 +7,7 @@
 				</v-avatar>
 			</v-layout>
 		</v-img>
-		<v-container>
+		<v-container v-if="vakinha.aberta">
 			<v-card class="elevation-5">
 				<v-container>
 					<v-layout row wrap grid-list-xl>
@@ -21,16 +21,13 @@
 							<p>
 								O doador receberá as seguintes recompensas:
 								<ul>
-									<li>A partir de 10 reais: adesivo e bottom.</li>
-									<li>20 reais: adesivo, bottom e marcador de página.</li>
-									<li>50 reais: adesivo, bottom, marcador de página, caneta e copo oficial.</li>
-									<li>100 reais: adesivo, bottom, marcador de página, caneta, copo e camiseta oficial.</li>
+									<li v-for="(recompensa, i) in vakinha.recompensas" :key="i">A partir de {{recompensa.valor}} reais: {{recompensa.recompensa}}</li>
 								</ul>
 							</p>
 							<p>
-								Os brindes poderão ser retirados no dia do evento (08/12/2018) sem custo, na recepção do LabKids Festival.
+								Os brindes poderão ser retirados no dia do evento ({{vakinha.dataFestival}}) sem custo, na recepção do LabKids Festival.
 							</p>
-							<v-btn color="primary" href="http://vaka.me/jo9v2d" target="_blank">Doar</v-btn>
+							<v-btn color="primary" :href="vakinha.url" target="_blank">Doar</v-btn>
 						</v-flex>
 					</v-layout>
 				</v-container>
@@ -38,8 +35,18 @@
 		</v-container>
 		<v-container grid-list-lg>
 			<v-layout row wrap>
-				<v-flex xs12 sm6 md4 v-for="(item, i) in items" :key="i">
-					<v-img :src="`${$gitdata}/${item}`" class="img_sobre"></v-img>
+				<v-flex xs12 sm6 md4 v-for="(valor, i) in valores" :key="i" d-flex>
+					<v-card class="elevation-5">
+						<v-toolbar color="primary" dark>
+							<v-toolbar-title>{{valor.nome}}</v-toolbar-title>
+						</v-toolbar>
+						<v-container>
+							<ul v-if="Array.isArray(valor.descricao)">
+								<li v-for="(item, i) in valor.descricao" :key="i">{{item}}</li>
+							</ul>
+							<p v-else class="texto-valor">{{valor.descricao}}</p>
+						</v-container>
+					</v-card>
 				</v-flex>
 			</v-layout>
 		</v-container>
@@ -51,25 +58,33 @@
 </template>
 
 <style scoped>
-	.img_sobre {
-		width: 100%;
+	.texto-valor {
+		text-align: justify;
 	}
 </style>
 
 <script>
 export default {
 	data: () => ({
-		items: [],
+		vakinha: {},
+		valores: [],
 		loading: false,
 		error: false,
 		errorText: ''
 	}),
 	mounted() {
 		this.loading = true
-		this.$axios.get(`${this.$gitdata}/sobre.json`)
+		this.$axios.get(`${this.$gitdata}/valores.json`)
 			.then(response => {
-				this.loading = false
-				this.items = response.data
+				this.valores = response.data
+				this.$axios.get(`${this.$gitdata}/vakinha.json`).then(response => {
+					this.loading = false
+					this.vakinha = response.data
+				}).catch(err => {
+					this.loading = false
+					this.errorText = err.response ? err.response.data : err.message
+					this.error = true
+				})
 			})
 			.catch(err => {
 				this.loading = false

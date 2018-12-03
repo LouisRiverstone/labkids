@@ -1,11 +1,11 @@
 <template>
-	<v-app :dark="dark">
+	<v-app>
 		<v-toolbar color="primary" dark flat tabs fixed app>
 			<v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title>Labkids</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" :target="item.target" :disabled="item.disabled">{{item.title}}</v-btn>
+				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" :target="item.href ? '_blank' : '_self'" :disabled="item.disabled">{{item.title}}</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
 		<v-content>
@@ -13,25 +13,21 @@
 		</v-content>
 		<v-bottom-sheet v-model="drawer">
 			<v-list>
-				<v-list-tile v-for="(item, i) in menu" :key="i" ripple :to="item.to" :href="item.href" target="_blank" @click="drawer = false" :disabled="item.disabled">
+				<v-list-tile v-for="(item, i) in menu" :key="i" ripple :to="item.to" :href="item.href" :target="item.href ? '_blank' : '_self'" @click="drawer = false" :disabled="item.disabled">
 					<v-list-tile-title>{{item.title}}</v-list-tile-title>
 				</v-list-tile>
 			</v-list>
 		</v-bottom-sheet>
-		<v-footer dark height="auto" class="pa-2">
+		<v-footer color="primary" dark height="auto" class="pa-2">
 			<v-layout row wrap justify-center>
 				<v-flex xs12 text-xs-center>
-					<v-btn color="secondary" href="https://www.facebook.com/labkids.br" target="_blank">
+					<v-btn color="white" class="primary--text" href="https://www.facebook.com/labkids.br" target="_blank">
 						<v-icon>mdi-facebook</v-icon>&nbsp;
 						Facebook
 					</v-btn>
-					<v-btn color="secondary" href="https://www.youtube.com/channel/UCtgw29LvoY_bpPUPXM4xVkw" target="_blank">
+					<v-btn color="white" class="primary--text" href="https://www.youtube.com/channel/UCtgw29LvoY_bpPUPXM4xVkw" target="_blank">
 						<v-icon>mdi-play-circle</v-icon>&nbsp;
 						Youtube
-					</v-btn>
-					<v-btn color="secondary" @click="toggleTheme">
-						<v-icon>mdi-theme-light-dark</v-icon>&nbsp;
-						Tema
 					</v-btn>
 				</v-flex>
 				<v-flex xs12 text-xs-center class="mt-2">
@@ -58,42 +54,34 @@ export default {
 		menu: [
 			{
 				title: 'Classificados',
-				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf',
-				target: '_blank'
+				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf'
 			},
 			{
 				title: 'Sobre',
-				to: '/sobre',
-				target: '_self'
+				to: '/sobre'
 			},
 			{
 				title: 'Notícias',
-				href: 'https://www.facebook.com/labkids.br',
-				target: '_blank'
+				href: 'https://www.facebook.com/labkids.br'
 			},
 			{
 				title: 'Cursos',
-				to: '/cursos',
-				target: '_self'
+				to: '/cursos'
 			},
 			{
 				title: 'Equipe',
-				to: '/equipe',
-				target: '_self'
+				to: '/equipe'
 			},
 			{
-				title: 'Inscrições',
-				target: '_blank'
+				title: 'Inscrições'
 			},
 			{
 				title: 'Galeria',
-				to: '/galeria',
-				target: '_self'
+				to: '/galeria'
 			},
 			{
 				title: 'Contato',
-				to: '/contato',
-				target: '_self'
+				to: '/contato'
 			}
 		]
 	}),
@@ -112,12 +100,6 @@ export default {
 				this.errorText = err.response ? err.response.data : err.message
 				this.error = true
 			})
-	},
-	methods: {
-		toggleTheme() {
-			this.dark = !this.dark
-			localStorage.dark = this.dark
-		}
 	},
 	computed: {
 		year() {
