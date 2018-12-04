@@ -2,7 +2,7 @@
 	<v-app>
 		<v-toolbar color="primary" dark flat tabs fixed app>
 			<v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title>Labkids</v-toolbar-title>
+			<v-toolbar-title>LABKIDS</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
 				<v-btn flat v-for="(item, i) in menu" :key="i" :to="item.to" :href="item.href" :target="item.href ? '_blank' : '_self'" :disabled="item.disabled">{{item.title}}</v-btn>
@@ -51,10 +51,10 @@ export default {
 		drawer: false,
 		dark: false,
 		inscricoes: {},
+		classificados: {},
 		menu: [
 			{
-				title: 'Classificados',
-				href: 'https://cdn.rawgit.com/samuelnovaes/labkids-dados/master/lista.pdf'
+				title: 'Classificados'
 			},
 			{
 				title: 'Sobre',
@@ -88,18 +88,25 @@ export default {
 	mounted() {
 		this.dark = localStorage.dark ? JSON.parse(localStorage.dark) : false
 		this.loading = true
-		this.$axios.get(`${this.$gitdata}/inscricoes.json`)
-			.then(response => {
+		this.$axios.get(`${this.$gitdata}/inscricoes.json`).then(response => {
+			const i = this.menu.find(x => x.title == 'Inscrições')
+			i.disabled = !response.data.abertas
+			i.href = response.data.url
+			this.$axios.get(`${this.$gitdata}/classificados.json`).then(response => {
 				this.loading = false
-				const i = this.menu.find(x => x.title == 'Inscrições')
-				i.disabled = !response.data.abertas
-				i.href = response.data.url
-			})
-			.catch(err => {
+				const i = this.menu.find(x => x.title == 'Classificados')
+				i.disabled = !response.data.aberto
+				i.href = `${this.$gitdata}/${response.data.url}`
+			}).catch(err => {
 				this.loading = false
 				this.errorText = err.response ? err.response.data : err.message
 				this.error = true
 			})
+		}).catch(err => {
+			this.loading = false
+			this.errorText = err.response ? err.response.data : err.message
+			this.error = true
+		})
 	},
 	computed: {
 		year() {
