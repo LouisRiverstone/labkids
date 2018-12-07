@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const bundler = new Bundler(path.join(__dirname, 'client', 'index.html'))
 const router = express.Router()
+
 app.use('/assets', serveStatic(path.join(__dirname, 'client', 'assets')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
