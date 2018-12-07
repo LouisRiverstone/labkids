@@ -12,6 +12,10 @@ app.use('/assets', serveStatic(path.join(__dirname, 'client', 'assets')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.get('/games', (req, res) => {
+	res.redirect('https://cdn.staticaly.com/gh/LouisRiverstone/CriacaoJogosLabKids/master/index.html')
+})
+
 router.use('/galeria', require('./routes/galeria'))
 router.use('/mensagem', require('./routes/mensagem'))
 
